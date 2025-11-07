@@ -69,24 +69,5 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Live Search route
-router.get('/search', async (req, res) => {
-  try {
-    const q = req.query.q || "";
-    console.log("Search query:", q);
-
-    const results = await Product.find({
-      $or: [
-        { name: { $regex: q, $options: "i" } },
-        { brand: { $regex: q, $options: "i" } },
-        { category: { $regex: q, $options: "i" } },
-      ],
-    });
-    res.json(results);
-  } catch (error) {
-    console.error("Search error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 module.exports = router;
